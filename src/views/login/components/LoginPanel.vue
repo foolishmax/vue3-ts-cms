@@ -6,13 +6,13 @@
         <template #label>
           <span><i class="el-icon-user-solid"></i> 账号登录</span>
         </template>
-        login
+        <login-account ref="accountRef"></login-account>
       </el-tab-pane>
       <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i> 手机登录</span>
         </template>
-        phone
+        <login-phone></login-phone>
       </el-tab-pane>
     </el-tabs>
 
@@ -29,9 +29,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import LoginAccount from './LoginAccount.vue'
+import LoginPhone from './LoginPhone.vue'
 
 const currentTab = ref('account')
 const isKeepPassword = ref(true)
+const accountRef = ref<InstanceType<typeof LoginAccount>>()
+
+const handleLoginClick = () => {
+  if (currentTab.value === 'account') {
+    accountRef.value?.loginAction()
+  } else {
+    console.log('phoneRef调用loginAction')
+  }
+}
 </script>
 
 <style lang="less" scoped>
